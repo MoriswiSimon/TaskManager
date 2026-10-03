@@ -1,0 +1,35 @@
+﻿@page
+@model IndexModel
+
+<div class="task-container">
+
+    <h1>Task Manager</h1>
+
+    <p class="subtitle">Manage your tasks efficiently</p>
+
+    <div class="task-input">
+        <input type="text" id="taskInput" placeholder="Enter a new task">
+        <button id="addTaskBtn">Add Task</button>
+    </div>
+
+    <div class="task-list" id="taskList">
+
+        <div class="task-item">
+            <span>Learn C#</span>
+            <div>
+                <button class="complete-btn">Complete</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
+
+        <div class="task-item">
+            <span>Practice ASP.NET Core</span>
+            <div>
+                <button class="complete-btn">Complete</button>
+                <button class="delete-btn">Delete</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
