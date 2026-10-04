@@ -2,19 +2,21 @@
 const taskInput = document.getElementById("taskInput");
 const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
+const taskPriority = document.getElementById("taskPriority");
 
 function saveTasks() {
     const tasks = [];
 
     document.querySelectorAll(".task-item").forEach(function (taskItem) {
         tasks.push({
-            text: taskItem.querySelector(".task-text").textContent,
-            status: taskItem.classList.contains("completed")
-                ? "completed"
-                : taskItem.classList.contains("in-progress")
-                    ? "in-progress"
-                    : "pending"
-        });
+    text: taskItem.querySelector(".task-text").textContent,
+    status: taskItem.classList.contains("completed")
+        ? "completed"
+        : taskItem.classList.contains("in-progress")
+            ? "in-progress"
+            : "pending",
+    priority: taskItem.dataset.priority || "Medium"
+       });
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -81,9 +83,10 @@ function addTaskEvents(taskItem) {
     });
 }
 
-function createTask(taskText, status = "pending") {
+function createTask(taskText, status = "pending", priority = "Medium") {
     const taskItem = document.createElement("div");
     taskItem.className = "task-item";
+    taskItem.dataset.priority = priority;
 
     if (status === "completed") {
         taskItem.classList.add("completed");
@@ -94,10 +97,11 @@ function createTask(taskText, status = "pending") {
     }
 
     taskItem.innerHTML = `
-        <div class="task-content">
-            <span class="task-text">${taskText}</span>
-            <span class="task-status">Pending</span>
-        </div>
+    <div class="task-content">
+        <span class="task-text">${taskText}</span>
+        <span class="task-status">Pending</span>
+        <span class="task-priority">${priority}</span>
+    </div>
 
         <div>
             <button class="start-btn">Start</button>
@@ -137,7 +141,7 @@ function loadTasks() {
     const tasks = JSON.parse(savedTasks);
 
     tasks.forEach(function (task) {
-        createTask(task.text, task.status);
+        createTask(task.text, task.status, task.priority || "Medium");
     });
 }
 
@@ -148,7 +152,7 @@ addTaskBtn.addEventListener("click", function () {
         return;
     }
 
-    createTask(taskText);
+    createTask(taskText, "pending", taskPriority.value);
 
     taskInput.value = "";
 

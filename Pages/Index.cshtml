@@ -8,9 +8,16 @@
     <p class="subtitle">Manage your tasks efficiently</p>
 
     <div class="task-input">
-        <input type="text" id="taskInput" placeholder="Enter a new task">
-        <button id="addTaskBtn">Add Task</button>
-    </div>
+    <input type="text" id="taskInput" placeholder="Enter a new task">
+
+    <select id="taskPriority">
+        <option value="High">High</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="Low">Low</option>
+    </select>
+
+    <button id="addTaskBtn">Add Task</button>
+</div>
 
     <div class="task-list" id="taskList">
 
