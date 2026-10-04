@@ -154,3 +154,32 @@ body {
     text-decoration: line-through;
     color: #6c757d;
 }
+
+.start-btn {
+    background: #6f42c1;
+    color: white;
+}
+
+.start-btn:hover {
+    background: #59359a;
+}
+
+.task-item.in-progress {
+    border-left: 4px solid #6f42c1;
+}
+
+.task-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.task-status {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+.task-item.completed .task-status {
+    color: #198754;
+}
