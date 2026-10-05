@@ -21,12 +21,14 @@ body {
   margin-bottom: 60px;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
 
@@ -56,17 +58,32 @@ body {
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.task-input input {
+.task-input input[type="text"] {
     flex: 1;
+    min-width: 220px;
     padding: 12px 15px;
     border: 1px solid #ced4da;
     border-radius: 8px;
     outline: none;
 }
 
-.task-input input:focus {
+.task-input select,
+.task-input input[type="date"] {
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    outline: none;
+    background: white;
+    color: #212529;
+}
+
+.task-input input[type="text"]:focus,
+.task-input select:focus,
+.task-input input[type="date"]:focus {
     border-color: #0d6efd;
     box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
 }
@@ -133,28 +150,6 @@ body {
     background: #bb2d3b;
 }
 
-@media (max-width: 600px) {
-    .task-container {
-        margin: 20px 10px;
-        padding: 25px 20px;
-    }
-
-    .task-input {
-        flex-direction: column;
-    }
-
-    .task-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-}
-
-.task-item.completed span {
-    text-decoration: line-through;
-    color: #6c757d;
-}
-
 .start-btn {
     background: #6f42c1;
     color: white;
@@ -182,4 +177,48 @@ body {
 
 .task-item.completed .task-status {
     color: #198754;
+}
+
+.task-priority {
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.task-due-date {
+    font-size: 13px;
+    color: #6c757d;
+}
+
+.task-item.completed span {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .task-container {
+        margin: 20px 10px;
+        padding: 25px 20px;
+    }
+
+    .task-input {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .task-input input[type="text"],
+    .task-input select,
+    .task-input input[type="date"],
+    .task-input button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
 }
