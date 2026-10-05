@@ -3,6 +3,7 @@ const addTaskBtn = document.getElementById("addTaskBtn");
 const taskList = document.getElementById("taskList");
 const taskPriority = document.getElementById("taskPriority");
 const taskDueDate = document.getElementById("taskDueDate");
+const taskCategory = document.getElementById("taskCategory");
 
 function saveTasks() {
     const tasks = [];
@@ -22,7 +23,8 @@ function saveTasks() {
                     ? "in-progress"
                     : "pending",
             priority: taskItem.dataset.priority || "Medium",
-            dueDate: taskItem.dataset.dueDate || ""
+            dueDate: taskItem.dataset.dueDate || "",
+            category: taskItem.dataset.category || "IT Support"
         });
     });
 
@@ -99,7 +101,8 @@ function createTask(
     taskText,
     status = "pending",
     priority = "Medium",
-    dueDate = ""
+    dueDate = "",
+    category = "IT Support"
 ) {
     const taskItem = document.createElement("div");
 
@@ -107,6 +110,7 @@ function createTask(
 
     taskItem.dataset.priority = priority;
     taskItem.dataset.dueDate = dueDate;
+    taskItem.dataset.category = category;
 
     if (status === "completed") {
         taskItem.classList.add("completed");
@@ -121,8 +125,11 @@ function createTask(
             <span class="task-text">${taskText}</span>
             <span class="task-status">Pending</span>
             <span class="task-priority">${priority}</span>
+
+            <span class="task-category">${category}</span>
+
             <span class="task-due-date">
-                ${dueDate ? "Due: " + dueDate : "No due date"}
+               ${dueDate ? "Due: " + dueDate : "No due date"}
             </span>
         </div>
 
@@ -171,7 +178,8 @@ function loadTasks() {
             task.text,
             task.status,
             task.priority || "Medium",
-            task.dueDate || ""
+            task.dueDate || "",
+            task.category || "IT Support"   
         );
     });
 }
@@ -187,12 +195,15 @@ addTaskBtn.addEventListener("click", function () {
         taskText,
         "pending",
         taskPriority.value,
-        taskDueDate.value
+        taskDueDate.value,
+        taskCategory.value
     );
 
     taskInput.value = "";
 
     taskDueDate.value = "";
+
+    taskCategory.value = "IT Support";  
 
     saveTasks();
 });
