@@ -5,6 +5,11 @@ const taskPriority = document.getElementById("taskPriority");
 const taskDueDate = document.getElementById("taskDueDate");
 const taskCategory = document.getElementById("taskCategory");
 
+const statusFilter = document.getElementById("statusFilter");
+const priorityFilter = document.getElementById("priorityFilter");
+const categoryFilter = document.getElementById("categoryFilter");
+
+
 function saveTasks() {
     const tasks = [];
 
@@ -31,6 +36,7 @@ function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+
 function addTaskEvents(taskItem) {
     const deleteBtn = taskItem.querySelector(".delete-btn");
     const completeBtn = taskItem.querySelector(".complete-btn");
@@ -40,7 +46,9 @@ function addTaskEvents(taskItem) {
     deleteBtn.addEventListener("click", function () {
         taskItem.remove();
         saveTasks();
+        filterTasks();
     });
+
 
     editBtn.addEventListener("click", function () {
         const taskText = taskItem.querySelector(".task-text");
@@ -65,6 +73,7 @@ function addTaskEvents(taskItem) {
         saveTasks();
     });
 
+
     startBtn.addEventListener("click", function () {
         taskItem.classList.remove("completed");
 
@@ -83,7 +92,9 @@ function addTaskEvents(taskItem) {
         }
 
         saveTasks();
+        filterTasks();
     });
+
 
     completeBtn.addEventListener("click", function () {
         taskItem.classList.remove("in-progress");
@@ -94,8 +105,10 @@ function addTaskEvents(taskItem) {
         statusLabel.textContent = "Completed";
 
         saveTasks();
+        filterTasks();
     });
 }
+
 
 function createTask(
     taskText,
@@ -122,15 +135,19 @@ function createTask(
 
     taskItem.innerHTML = `
         <div class="task-content">
+
             <span class="task-text">${taskText}</span>
+
             <span class="task-status">Pending</span>
+
             <span class="task-priority">${priority}</span>
 
             <span class="task-category">${category}</span>
 
             <span class="task-due-date">
-               ${dueDate ? "Due: " + dueDate : "No due date"}
+                ${dueDate ? "Due: " + dueDate : "No due date"}
             </span>
+
         </div>
 
         <div>
@@ -156,6 +173,7 @@ function createTask(
     }
 }
 
+
 function loadTasks() {
     const savedTasks = localStorage.getItem("tasks");
 
@@ -179,10 +197,55 @@ function loadTasks() {
             task.status,
             task.priority || "Medium",
             task.dueDate || "",
-            task.category || "IT Support"   
+            task.category || "IT Support"
         );
     });
 }
+
+
+function filterTasks() {
+    const selectedStatus = statusFilter.value;
+    const selectedPriority = priorityFilter.value;
+    const selectedCategory = categoryFilter.value;
+
+    document.querySelectorAll(".task-item").forEach(function (taskItem) {
+
+        const taskStatus = taskItem.classList.contains("completed")
+            ? "completed"
+            : taskItem.classList.contains("in-progress")
+                ? "in-progress"
+                : "pending";
+
+        const taskPriorityValue =
+            taskItem.dataset.priority || "Medium";
+
+        const taskCategoryValue =
+            taskItem.dataset.category || "IT Support";
+
+        const statusMatches =
+            selectedStatus === "all" ||
+            selectedStatus === taskStatus;
+
+        const priorityMatches =
+            selectedPriority === "all" ||
+            selectedPriority === taskPriorityValue;
+
+        const categoryMatches =
+            selectedCategory === "all" ||
+            selectedCategory === taskCategoryValue;
+
+        if (
+            statusMatches &&
+            priorityMatches &&
+            categoryMatches
+        ) {
+            taskItem.style.display = "";
+        } else {
+            taskItem.style.display = "none";
+        }
+    });
+}
+
 
 addTaskBtn.addEventListener("click", function () {
     const taskText = taskInput.value.trim();
@@ -203,9 +266,21 @@ addTaskBtn.addEventListener("click", function () {
 
     taskDueDate.value = "";
 
-    taskCategory.value = "IT Support";  
+    taskCategory.value = "IT Support";
 
     saveTasks();
+
+    filterTasks();
 });
 
+
+statusFilter.addEventListener("change", filterTasks);
+
+priorityFilter.addEventListener("change", filterTasks);
+
+categoryFilter.addEventListener("change", filterTasks);
+
+
 loadTasks();
+
+filterTasks();
