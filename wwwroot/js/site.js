@@ -259,7 +259,7 @@ function filterTasks() {
     });
 }
 
-
+if (addTaskBtn) {
 addTaskBtn.addEventListener("click", function () {
     const taskText = taskInput.value.trim();
 
@@ -299,3 +299,44 @@ taskSearch.addEventListener("input", filterTasks);
 loadTasks();
 
 filterTasks();
+}
+
+function updateDashboard() {
+    const totalTasks = document.getElementById("totalTasks");
+    const pendingTasks = document.getElementById("pendingTasks");
+    const inProgressTasks = document.getElementById("inProgressTasks");
+    const completedTasks = document.getElementById("completedTasks");
+
+    if (!totalTasks) {
+        return;
+    }
+
+    const savedTasks = localStorage.getItem("tasks");
+
+    if (!savedTasks) {
+        totalTasks.textContent = "0";
+        pendingTasks.textContent = "0";
+        inProgressTasks.textContent = "0";
+        completedTasks.textContent = "0";
+
+        return;
+    }
+
+    const tasks = JSON.parse(savedTasks);
+
+    totalTasks.textContent = tasks.length;
+
+    pendingTasks.textContent = tasks.filter(function (task) {
+        return task.status === "pending";
+    }).length;
+
+    inProgressTasks.textContent = tasks.filter(function (task) {
+        return task.status === "in-progress";
+    }).length;
+
+    completedTasks.textContent = tasks.filter(function (task) {
+        return task.status === "completed";
+    }).length;
+}
+
+updateDashboard();
