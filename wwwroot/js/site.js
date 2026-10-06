@@ -8,6 +8,7 @@ const taskCategory = document.getElementById("taskCategory");
 const statusFilter = document.getElementById("statusFilter");
 const priorityFilter = document.getElementById("priorityFilter");
 const categoryFilter = document.getElementById("categoryFilter");
+const taskSearch = document.getElementById("taskSearch");
 
 
 function saveTasks() {
@@ -71,6 +72,7 @@ function addTaskEvents(taskItem) {
         taskText.textContent = updatedText;
 
         saveTasks();
+        filterTasks();
     });
 
 
@@ -207,8 +209,14 @@ function filterTasks() {
     const selectedStatus = statusFilter.value;
     const selectedPriority = priorityFilter.value;
     const selectedCategory = categoryFilter.value;
+    const searchText = taskSearch.value.trim().toLowerCase();
 
     document.querySelectorAll(".task-item").forEach(function (taskItem) {
+
+        const taskText = taskItem
+            .querySelector(".task-text")
+            .textContent
+            .toLowerCase();
 
         const taskStatus = taskItem.classList.contains("completed")
             ? "completed"
@@ -234,10 +242,15 @@ function filterTasks() {
             selectedCategory === "all" ||
             selectedCategory === taskCategoryValue;
 
+        const searchMatches =
+            searchText === "" ||
+            taskText.includes(searchText);
+
         if (
             statusMatches &&
             priorityMatches &&
-            categoryMatches
+            categoryMatches &&
+            searchMatches
         ) {
             taskItem.style.display = "";
         } else {
@@ -279,6 +292,8 @@ statusFilter.addEventListener("change", filterTasks);
 priorityFilter.addEventListener("change", filterTasks);
 
 categoryFilter.addEventListener("change", filterTasks);
+
+taskSearch.addEventListener("input", filterTasks);
 
 
 loadTasks();
