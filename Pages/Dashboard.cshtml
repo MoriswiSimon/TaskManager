@@ -1,10 +1,31 @@
+
 @page
 
 <div class="dashboard-container">
 
-    <h1>Dashboard</h1>
+    <!-- Dashboard Header -->
 
-    <p class="subtitle">Overview of your tasks</p>
+    <div class="dashboard-header">
+
+        <div>
+            <h1>Dashboard</h1>
+            <p class="subtitle">Overview of your tasks and productivity</p>
+        </div>
+
+        <div class="dashboard-actions">
+            <a asp-page="/Index" class="dashboard-action-btn">
+                + Add Task
+            </a>
+
+            <a asp-page="/Index" class="dashboard-secondary-btn">
+                View All Tasks
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- Summary Cards -->
 
     <div class="dashboard-cards">
 
@@ -28,6 +49,229 @@
             <strong id="completedTasks">0</strong>
         </div>
 
+        <div class="dashboard-card">
+            <span>Overdue</span>
+            <strong id="overdueTasks">0</strong>
+        </div>
+
+        <div class="dashboard-card">
+            <span>Due Today</span>
+            <strong id="dueTodayTasks">0</strong>
+        </div>
+
+    </div>
+
+
+    <!-- Overall Progress -->
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h2>Overall Progress</h2>
+            <span id="completionPercentage">0%</span>
+        </div>
+
+        <div class="progress-container">
+
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+        </div>
+
+        <p class="progress-text">
+            Keep going! Complete your remaining tasks to reach your goals.
+        </p>
+
+    </div>
+
+
+    <!-- Priority and Category -->
+
+    <div class="dashboard-grid">
+
+        <!-- Tasks by Priority -->
+
+        <div class="dashboard-section">
+
+            <div class="section-header">
+                <h2>Tasks by Priority</h2>
+            </div>
+
+            <div class="summary-list">
+
+                <div class="summary-row">
+                    <span>High</span>
+                    <strong id="highPriorityTasks">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Medium</span>
+                    <strong id="mediumPriorityTasks">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Low</span>
+                    <strong id="lowPriorityTasks">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Tasks by Category -->
+
+        <div class="dashboard-section">
+
+            <div class="section-header">
+                <h2>Tasks by Category</h2>
+            </div>
+
+            <div class="summary-list">
+
+                <div class="summary-row">
+                    <span>IT Support</span>
+                    <strong id="itSupportTasks">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Maintenance</span>
+                    <strong id="maintenanceTasks">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Equipment</span>
+                    <strong id="equipmentTasks">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>HR</span>
+                    <strong id="hrTasks">0</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Administration</span>
+                    <strong id="administrationTasks">0</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Upcoming and Overdue Tasks -->
+
+    <div class="dashboard-grid">
+
+        <!-- Upcoming Tasks -->
+
+        <div class="dashboard-section">
+
+            <div class="section-header">
+
+                <h2>Upcoming Tasks</h2>
+
+                <a asp-page="/Index">
+                    View Tasks
+                </a>
+
+            </div>
+
+            <div id="upcomingTasks" class="dashboard-task-list">
+
+                <div class="empty-dashboard-message">
+                    No upcoming tasks.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Overdue Tasks -->
+
+        <div class="dashboard-section">
+
+            <div class="section-header">
+
+                <h2>Overdue Tasks</h2>
+
+                <a asp-page="/Index">
+                    View Tasks
+                </a>
+
+            </div>
+
+            <div id="overdueTaskList" class="dashboard-task-list">
+
+                <div class="empty-dashboard-message">
+                    No overdue tasks.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent Activity -->
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h2>Recent Activity</h2>
+        </div>
+
+        <div id="recentActivity" class="activity-list">
+
+            <div class="activity-item">
+
+                <span class="activity-icon">+</span>
+
+                <div>
+                    <strong>Task added</strong>
+                    <p>Your recent task activity will appear here.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Quick Actions -->
+
+    <div class="dashboard-section">
+
+        <div class="section-header">
+            <h2>Quick Actions</h2>
+        </div>
+
+        <div class="quick-actions">
+
+            <a asp-page="/Index" class="quick-action">
+                + Add New Task
+            </a>
+
+            <a asp-page="/Index" class="quick-action">
+                View All Tasks
+            </a>
+
+            <a asp-page="/Index" class="quick-action">
+                Manage Tasks
+            </a>
+
+        </div>
+
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}
